@@ -9,7 +9,7 @@ try:
         # Print star pattern
         print(f"\nStar pattern with {n} rows:")
         for i in range(n):
-            for j in range(n):
+            for j in range(5):
                 print("*", end="")
             print()  # New line after each row
 
