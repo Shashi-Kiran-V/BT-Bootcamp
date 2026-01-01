@@ -4,62 +4,33 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PLD - Gallery</title>
-  <!-- Normalize CSS for cross-browser consistency -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-oHDEc8Xed+ZtZ2yg3eBrnDLEZ2FrU6kZpI6jJmC0o3I0zlfzWg2vYct+ePDRRppfT+s1yR7VvYqI5f3v5Z5FQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-oHDEc8Xed+ZtZ2yg3eBrnDLEZ2FrU6kZpI6jJmC0o3I0zlfzWg2vYct+ePDRRppfT+s1yR7VvYqI5f3v5Z5FQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-
-    /* Custom hover effect */
-    .gallery-item {
-      position: relative;
-      overflow: hidden;
-      border-radius: 0.5rem;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .gallery-item img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.3s ease;
-    }
-
-    .gallery-item:hover img {
-      transform: scale(1.1);
-    }
-
-    .gallery-caption {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      background: rgba(0,0,0,0.6);
-      color: #fff;
-      padding: 0.5rem;
-      text-align: center;
-      font-size: 0.9rem;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .gallery-item:hover .gallery-caption {
-      opacity: 1;
-    }
+    .gallery-item { position: relative; overflow: hidden; border-radius: 0.5rem; transition: transform 0.4s ease, box-shadow 0.4s ease; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+    .gallery-item:hover img { transform: scale(1.08); box-shadow: 0 8px 20px rgba(0,0,0,0.5); }
+    .gallery-caption { position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.6); color: #fff; padding: 0.5rem; text-align: center; font-size: 0.9rem; opacity: 0; transition: opacity 0.4s ease; }
+    .gallery-item:hover .gallery-caption { opacity: 1; }
+    nav a { transition: color 0.3s ease; }
+    button { transition: background-color 0.3s ease, transform 0.2s ease; }
+    button:hover { transform: translateY(-2px); }
   </style>
 </head>
 <body class="bg-gray-900 text-gray-100 min-h-screen">
 
-  <!-- Header -->
-  <header class="bg-gray-800 p-4 flex justify-between items-center">
+  <!-- Sticky Header -->
+  <header class="bg-gray-800 p-4 flex justify-between items-center sticky top-0 z-50 shadow-md transition-all duration-300">
     <h1 class="text-2xl font-semibold">Gallery</h1>
     <button id="menu-btn" class="md:hidden text-gray-100 text-2xl focus:outline-none">&#9776;</button>
     <nav id="menu" class="hidden md:flex md:gap-6 flex-col md:flex-row mt-2 md:mt-0">
-      <a href="dashboard.html" class="block px-2 py-2 hover:text-blue-400">Dashboard</a>
-      <a href="profile.html" class="block px-2 py-2 hover:text-blue-400">Profile</a>
-      <a href="gallery.html" class="block px-2 py-2 hover:text-blue-400">Gallery</a>
-      <a href="login.html" class="block px-2 py-2 hover:text-blue-400">Logout</a>
+      <a href="dashboard.html" class="hover:text-blue-400 focus:text-blue-400">Dashboard</a>
+      <a href="profile.html" class="hover:text-blue-400 focus:text-blue-400">Profile</a>
+      <a href="gallery.html" class="hover:text-blue-400 focus:text-blue-400">Gallery</a>
+      <a href="login.html" class="hover:text-blue-400 focus:text-blue-400">Logout</a>
     </nav>
   </header>
 
@@ -69,49 +40,55 @@
     btn.addEventListener('click', () => { menu.classList.remove('hidden'); btn.classList.add('hidden'); });
   </script>
 
-  <!-- Gallery Grid -->
-  <main class="p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-    
+  <main class="p-6 grid grid-cols-2 md:grid-cols-4 gap-4">
     <div class="gallery-item">
       <img src="https://picsum.photos/300/200?random=1" alt="Image 1">
-      <div class="gallery-caption">Image 1 Caption</div>
+      <div class="gallery-caption">Caption 1</div>
     </div>
-
     <div class="gallery-item">
       <img src="https://picsum.photos/300/200?random=2" alt="Image 2">
-      <div class="gallery-caption">Image 2 Caption</div>
+      <div class="gallery-caption">Caption 2</div>
     </div>
-
     <div class="gallery-item">
       <img src="https://picsum.photos/300/200?random=3" alt="Image 3">
-      <div class="gallery-caption">Image 3 Caption</div>
+      <div class="gallery-caption">Caption 3</div>
     </div>
-
     <div class="gallery-item">
       <img src="https://picsum.photos/300/200?random=4" alt="Image 4">
-      <div class="gallery-caption">Image 4 Caption</div>
+      <div class="gallery-caption">Caption 4</div>
     </div>
-
     <div class="gallery-item">
       <img src="https://picsum.photos/300/200?random=5" alt="Image 5">
-      <div class="gallery-caption">Image 5 Caption</div>
+      <div class="gallery-caption">Caption 5</div>
     </div>
-
     <div class="gallery-item">
       <img src="https://picsum.photos/300/200?random=6" alt="Image 6">
-      <div class="gallery-caption">Image 6 Caption</div>
+      <div class="gallery-caption">Caption 6</div>
     </div>
-
     <div class="gallery-item">
       <img src="https://picsum.photos/300/200?random=7" alt="Image 7">
-      <div class="gallery-caption">Image 7 Caption</div>
+      <div class="gallery-caption">Caption 7</div>
     </div>
-
     <div class="gallery-item">
       <img src="https://picsum.photos/300/200?random=8" alt="Image 8">
-      <div class="gallery-caption">Image 8 Caption</div>
+      <div class="gallery-caption">Caption 8</div>
     </div>
-
+    <div class="gallery-item">
+      <img src="https://picsum.photos/300/200?random=9" alt="Image 9">
+      <div class="gallery-caption">Caption 9</div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://picsum.photos/300/200?random=10" alt="Image 10">
+      <div class="gallery-caption">Caption 10</div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://picsum.photos/300/200?random=11" alt="Image 11">
+      <div class="gallery-caption">Caption 11</div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://picsum.photos/300/200?random=12" alt="Image 12">
+      <div class="gallery-caption">Caption 12</div>
+    </div>
   </main>
 
 </body>
