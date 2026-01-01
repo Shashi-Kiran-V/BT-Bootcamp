@@ -7,6 +7,43 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+
+    /* Custom hover effect */
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 0.5rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .gallery-item img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+
+    .gallery-caption {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      padding: 0.5rem;
+      text-align: center;
+      font-size: 0.9rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .gallery-item:hover .gallery-caption {
+      opacity: 1;
+    }
   </style>
 </head>
 <body class="bg-gray-900 text-gray-100 min-h-screen">
@@ -29,16 +66,49 @@
     btn.addEventListener('click', () => { menu.classList.remove('hidden'); btn.classList.add('hidden'); });
   </script>
 
-  <!-- Main Gallery Grid -->
+  <!-- Gallery Grid -->
   <main class="p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-    <img src="https://picsum.photos/300/200?random=11" alt="Gallery Image 1" class="rounded-lg object-cover w-full h-48">
-    <img src="https://picsum.photos/300/200?random=12" alt="Gallery Image 2" class="rounded-lg object-cover w-full h-48">
-    <img src="https://picsum.photos/300/200?random=13" alt="Gallery Image 3" class="rounded-lg object-cover w-full h-48">
-    <img src="https://picsum.photos/300/200?random=14" alt="Gallery Image 4" class="rounded-lg object-cover w-full h-48">
-    <img src="https://picsum.photos/300/200?random=15" alt="Gallery Image 5" class="rounded-lg object-cover w-full h-48">
-    <img src="https://picsum.photos/300/200?random=16" alt="Gallery Image 6" class="rounded-lg object-cover w-full h-48">
-    <img src="https://picsum.photos/300/200?random=17" alt="Gallery Image 7" class="rounded-lg object-cover w-full h-48">
-    <img src="https://picsum.photos/300/200?random=18" alt="Gallery Image 8" class="rounded-lg object-cover w-full h-48">
+    
+    <div class="gallery-item">
+      <img src="https://picsum.photos/300/200?random=1" alt="Image 1">
+      <div class="gallery-caption">Image 1 Caption</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://picsum.photos/300/200?random=2" alt="Image 2">
+      <div class="gallery-caption">Image 2 Caption</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://picsum.photos/300/200?random=3" alt="Image 3">
+      <div class="gallery-caption">Image 3 Caption</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://picsum.photos/300/200?random=4" alt="Image 4">
+      <div class="gallery-caption">Image 4 Caption</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://picsum.photos/300/200?random=5" alt="Image 5">
+      <div class="gallery-caption">Image 5 Caption</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://picsum.photos/300/200?random=6" alt="Image 6">
+      <div class="gallery-caption">Image 6 Caption</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://picsum.photos/300/200?random=7" alt="Image 7">
+      <div class="gallery-caption">Image 7 Caption</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://picsum.photos/300/200?random=8" alt="Image 8">
+      <div class="gallery-caption">Image 8 Caption</div>
+    </div>
+
   </main>
 
 </body>
