@@ -32,15 +32,18 @@ if (isMember === "yes") {
   else {
     console.log("Invalid membership type. No discount applied.");
     discountRate = 0;
+    membershipType = "None";
   }
 }
 
-// ===== LAB 3: GST and Platform Fee =====
+// ===== LAB 3: GST & Platform Fee =====
 const gstRate = 0.18;          // 18% GST
 const platformFeeRate = 0.002; // 0.2% platform fee
 
 // ===== LAB 4: Payment Mode Charges =====
 let paymentMode = readline.question("\nEnter payment mode (Card/UPI/Cash/Other): ").toLowerCase();
+let surcharge = 0;
+let convenienceFee = 0;
 
 // ===== CALCULATIONS =====
 let grandTotal = cart.reduce((sum, item) => sum + item.totalPrice, 0);
@@ -51,11 +54,8 @@ let gstAmount = discountedTotal * gstRate;
 let platformFee = discountedTotal * platformFeeRate;
 let totalWithTax = discountedTotal + gstAmount + platformFee;
 
-let surcharge = 0;
-let convenienceFee = 0;
-
 if (paymentMode === "card" && totalWithTax < 1000) {
-  surcharge = totalWithTax * 0.025; // 2.5% card surcharge
+  surcharge = totalWithTax * 0.025; // 2.5% surcharge
 } else if (paymentMode !== "card") {
   convenienceFee = totalWithTax * 0.01; // 1% convenience fee
 }
@@ -63,15 +63,54 @@ if (paymentMode === "card" && totalWithTax < 1000) {
 let finalAmount = totalWithTax + surcharge + convenienceFee;
 
 // ===== LAB 5: Generate Invoice =====
-let invoiceDate = new Date();
 let invoiceNumber = "INV-" + Math.floor(Math.random() * 1000000);
+let invoiceDate = new Date();
 
-// ===== PRINT INVOICE =====
-console.log("\n\n==========================================");
+let invoiceData = {
+  invoiceNumber,
+  invoiceDate: invoiceDate.toISOString(),
+  cartItems: cart,
+  subtotal: grandTotal,
+  discountRate,
+  discountAmount,
+  discountedTotal,
+  gstRate,
+  gstAmount,
+  platformFeeRate,
+  platformFee,
+  totalWithTax,
+  paymentMode,
+  surcharge,
+  convenienceFee,
+  finalAmount
+};
+
+// ===== LAB 8: Email Validation & Notification =====
+const emailPattern = /^[a-zA-Z0-9._%+-]+@karunya\.edu$/;
+let email = readline.question("\nEnter your email (@karunya.edu): ");
+
+while (!emailPattern.test(email)) {
+  console.log("Invalid email format. Please enter a valid @karunya.edu email.");
+  email = readline.question("Enter your email (@karunya.edu): ");
+}
+
+console.log(`\nThank you! A confirmation has been sent to ${email}.`);
+
+// ===== LAB 6: Optional local save =====
+let saveOption = readline.question("\nDo you want to save the invoice locally as JSON? (yes/no): ").toLowerCase();
+if (saveOption === "yes") {
+  let fileName = `${invoiceNumber}.json`;
+  fs.writeFileSync(fileName, JSON.stringify(invoiceData, null, 2));
+  console.log(`Invoice saved locally as ${fileName}`);
+}
+
+// ===== Display Detailed Invoice =====
+console.log("\n==========================================");
 console.log("          KARAZON.COM INVOICE             ");
 console.log("==========================================");
 console.log(`Invoice No: ${invoiceNumber}`);
 console.log(`Date: ${invoiceDate.toLocaleString()}`);
+console.log(`Email: ${email}`);
 console.log("------------------------------------------");
 
 // Table Header
@@ -84,67 +123,20 @@ cart.forEach((item, index) => {
     `${(index + 1).toString().padEnd(6)} | ${item.itemCode.padEnd(10)} | ${item.description.padEnd(20)} | ${item.quantity.toString().padEnd(5)} | ${item.pricePerUnit.toFixed(2).padEnd(12)} | ${item.totalPrice.toFixed(2).padEnd(10)}`
   );
 });
-console.log("-".repeat(75));
 
-// Totals & Fees
-console.log(`Subtotal:`.padEnd(59) + grandTotal.toFixed(2));
-console.log(`Discount (${(discountRate*100).toFixed(0)}%):`.padEnd(59) + discountAmount.toFixed(2));
-console.log(`Total after Discount:`.padEnd(59) + discountedTotal.toFixed(2));
-console.log(`GST (18%):`.padEnd(59) + gstAmount.toFixed(2));
-console.log(`Platform Fee (0.2%):`.padEnd(59) + platformFee.toFixed(2));
-console.log(`Total with Tax & Fee:`.padEnd(59) + totalWithTax.toFixed(2));
-console.log(`Payment Mode: ${paymentMode.charAt(0).toUpperCase() + paymentMode.slice(1)}`);
-console.log(`Surcharge:`.padEnd(59) + surcharge.toFixed(2));
-console.log(`Convenience Fee:`.padEnd(59) + convenienceFee.toFixed(2));
 console.log("-".repeat(75));
-console.log(`FINAL AMOUNT PAYABLE:`.padEnd(59) + finalAmount.toFixed(2));
+console.log(`Subtotal:`.padEnd(59) + `₹${grandTotal.toFixed(2)}`);
+console.log(`Discount (${(discountRate*100).toFixed(0)}%):`.padEnd(59) + `₹${discountAmount.toFixed(2)}`);
+console.log(`Total after Discount:`.padEnd(59) + `₹${discountedTotal.toFixed(2)}`);
+console.log(`GST (18%):`.padEnd(59) + `₹${gstAmount.toFixed(2)}`);
+console.log(`Platform Fee (0.2%):`.padEnd(59) + `₹${platformFee.toFixed(2)}`);
+console.log(`Total with Tax & Fee:`.padEnd(59) + `₹${totalWithTax.toFixed(2)}`);
+console.log(`Payment Mode:`.padEnd(59) + `${paymentMode.charAt(0).toUpperCase() + paymentMode.slice(1)}`);
+console.log(`Surcharge:`.padEnd(59) + `₹${surcharge.toFixed(2)}`);
+console.log(`Convenience Fee:`.padEnd(59) + `₹${convenienceFee.toFixed(2)}`);
+console.log("-".repeat(75));
+console.log(`FINAL AMOUNT PAYABLE:`.padEnd(59) + `₹${finalAmount.toFixed(2)}`);
 console.log("==========================================");
 console.log("          PAYMENT SUCCESSFUL!             ");
 console.log("           INVOICE GENERATED              ");
-console.log("==========================================\n\n");
-
-// ===== LAB 6: Email Simulation & Local Save =====
-let emailAddress = readline.question("\nEnter your email (must be @karunya.edu): ");
-
-while (!emailAddress.endsWith("@karunya.edu")) {
-  console.log("Invalid email. Must be a valid @karunya.edu address.");
-  emailAddress = readline.question("Enter your email: ");
-}
-
-// Prepare invoice data in JSON
-let invoiceData = {
-  invoiceNumber: invoiceNumber,
-  invoiceDate: invoiceDate.toISOString(),
-  items: cart,
-  subtotal: grandTotal,
-  discountRate: discountRate,
-  discountAmount: discountAmount,
-  discountedTotal: discountedTotal,
-  gstRate: gstRate,
-  gstAmount: gstAmount,
-  platformFeeRate: platformFeeRate,
-  platformFee: platformFee,
-  totalWithTax: totalWithTax,
-  paymentMode: paymentMode,
-  surcharge: surcharge,
-  convenienceFee: convenienceFee,
-  finalAmount: finalAmount
-};
-
-// Simulate sending email
-console.log(`\nInvoice sent to ${emailAddress} successfully!`);
-
-// Optional: save invoice locally as JSON
-let saveOption = readline.question("Do you want to save the invoice locally as JSON? (yes/no): ").toLowerCase();
-if (saveOption === "yes") {
-  let fileName = `${invoiceNumber}.json`;
-  fs.writeFileSync(fileName, JSON.stringify(invoiceData, null, 2));
-  console.log(`Invoice saved locally as ${fileName}`);
-}
-
-// Display invoice JSON on console
-console.log("\n=== Invoice JSON Preview ===");
-console.log(JSON.stringify(invoiceData, null, 2));
-
-console.log("\nThank you for shopping at Karazon.com!");
-console.log("Payment Successful! Invoice Generated.");
+console.log("==========================================\n");
