@@ -1,4 +1,5 @@
 const readline = require('readline-sync');
+const fs = require('fs');
 
 // ===== LAB 1: Add Items to Cart =====
 let cart = [];
@@ -101,3 +102,49 @@ console.log("==========================================");
 console.log("          PAYMENT SUCCESSFUL!             ");
 console.log("           INVOICE GENERATED              ");
 console.log("==========================================\n\n");
+
+// ===== LAB 6: Email Simulation & Local Save =====
+let emailAddress = readline.question("\nEnter your email (must be @karunya.edu): ");
+
+while (!emailAddress.endsWith("@karunya.edu")) {
+  console.log("Invalid email. Must be a valid @karunya.edu address.");
+  emailAddress = readline.question("Enter your email: ");
+}
+
+// Prepare invoice data in JSON
+let invoiceData = {
+  invoiceNumber: invoiceNumber,
+  invoiceDate: invoiceDate.toISOString(),
+  items: cart,
+  subtotal: grandTotal,
+  discountRate: discountRate,
+  discountAmount: discountAmount,
+  discountedTotal: discountedTotal,
+  gstRate: gstRate,
+  gstAmount: gstAmount,
+  platformFeeRate: platformFeeRate,
+  platformFee: platformFee,
+  totalWithTax: totalWithTax,
+  paymentMode: paymentMode,
+  surcharge: surcharge,
+  convenienceFee: convenienceFee,
+  finalAmount: finalAmount
+};
+
+// Simulate sending email
+console.log(`\nInvoice sent to ${emailAddress} successfully!`);
+
+// Optional: save invoice locally as JSON
+let saveOption = readline.question("Do you want to save the invoice locally as JSON? (yes/no): ").toLowerCase();
+if (saveOption === "yes") {
+  let fileName = `${invoiceNumber}.json`;
+  fs.writeFileSync(fileName, JSON.stringify(invoiceData, null, 2));
+  console.log(`Invoice saved locally as ${fileName}`);
+}
+
+// Display invoice JSON on console
+console.log("\n=== Invoice JSON Preview ===");
+console.log(JSON.stringify(invoiceData, null, 2));
+
+console.log("\nThank you for shopping at Karazon.com!");
+console.log("Payment Successful! Invoice Generated.");
