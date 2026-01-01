@@ -6,38 +6,7 @@
   <title>PLD - Profile</title>
   
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-
-    /* Sticky header & smooth transition */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      transition: all 0.3s ease;
-    }
-
-    nav a {
-      transition: color 0.3s ease;
-    }
-
-    /* Hover & focus for buttons */
-    button {
-      transition: background-color 0.3s ease, transform 0.2s ease;
-    }
-    button:hover { transform: translateY(-2px); }
-
-    /* Hover for badges */
-    .skill-badge {
-      transition: background-color 0.3s ease, transform 0.2s ease;
-    }
-    .skill-badge:hover { transform: translateY(-2px); }
-
-    /* Profile image smooth update */
-    #profile-img {
-      transition: all 0.3s ease;
-    }
-  </style>
+  <link rel="stylesheet" href="css/profile.css">
 </head>
 <body class="bg-gray-900 text-gray-100 min-h-screen">
 
@@ -68,7 +37,7 @@
 
     <!-- Profile Image with Upload Icon -->
     <div class="flex flex-col items-center relative">
-      <img id="profile-img" src="Shashikiran_V_picture.jpeg" alt="Profile Avatar" class="rounded-full w-32 h-32 object-cover border-4 border-gray-700">
+      <img id="profile-img" src="./assets/Shashikiran_V_picture.jpeg" alt="Profile Avatar" class="rounded-full w-32 h-32 object-cover border-4 border-gray-700">
       
       <!-- Camera icon -->
       <label for="image-upload" class="absolute bottom-0 right-0 bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-full cursor-pointer border-2 border-gray-700 transition-colors">
