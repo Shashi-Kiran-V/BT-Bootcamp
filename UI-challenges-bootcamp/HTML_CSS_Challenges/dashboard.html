@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PLD - Dashboard</title>
+  <!-- Normalize CSS for cross-browser consistency -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-oHDEc8Xed+ZtZ2yg3eBrnDLEZ2FrU6kZpI6jJmC0o3I0zlfzWg2vYct+ePDRRppfT+s1yR7VvYqI5f3v5Z5FQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
@@ -12,39 +15,33 @@
 </head>
 <body class="bg-gray-900 text-gray-100 min-h-screen">
 
-  <!-- Header -->
+  <!-- Header with responsive nav -->
   <header class="bg-gray-800 p-4 flex justify-between items-center">
     <h1 class="text-2xl font-semibold">Personal Learning Dashboard</h1>
-
-    <!-- Hamburger -->
-    <button id="menu-btn" class="md:hidden text-gray-100 text-2xl focus:outline-none">&#9776;</button>
-
-    <!-- Menu -->
-    <nav id="menu" class="hidden md:flex md:gap-6 flex-col md:flex-row mt-2 md:mt-0">
-      <a href="dashboard.html" class="block px-2 py-2 hover:text-blue-400">Dashboard</a>
-      <a href="profile.html" class="block px-2 py-2 hover:text-blue-400">Profile</a>
-      <a href="gallery.html" class="block px-2 py-2 hover:text-blue-400">Gallery</a>
-      <a href="login.html" class="block px-2 py-2 hover:text-blue-400">Logout</a>
+    <div class="md:hidden">
+      <button id="menu-btn" class="text-gray-100 text-2xl">&#9776;</button>
+    </div>
+    <nav id="menu" class="hidden md:flex gap-6">
+      <a href="dashboard.html" class="hover:text-blue-400">Dashboard</a>
+      <a href="profile.html" class="hover:text-blue-400">Profile</a>
+      <a href="gallery.html" class="hover:text-blue-400">Gallery</a>
+      <a href="login.html" class="hover:text-blue-400">Logout</a>
     </nav>
   </header>
 
   <script>
     const btn = document.getElementById('menu-btn');
     const menu = document.getElementById('menu');
-
     btn.addEventListener('click', () => {
-      menu.classList.remove('hidden');   // show menu
-      btn.classList.add('hidden');       // hide hamburger
+      menu.classList.toggle('hidden');
     });
   </script>
 
-  <!-- Main -->
   <main class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
 
     <!-- Topics Explorer -->
     <section class="bg-gray-800 p-4 rounded-lg shadow">
       <h2 class="text-xl font-semibold mb-4">Topics Explorer</h2>
-
       <details class="mb-2 bg-gray-700 p-3 rounded">
         <summary class="cursor-pointer font-medium text-lg hover:text-blue-400">Module 1: HTML Basics</summary>
         <ul class="pl-4 mt-2 space-y-1 text-sm">
@@ -53,7 +50,6 @@
           <li><span class="font-semibold">Unit 3:</span> Forms</li>
         </ul>
       </details>
-
       <details class="mb-2 bg-gray-700 p-3 rounded">
         <summary class="cursor-pointer font-medium text-lg hover:text-blue-400">Module 2: CSS Fundamentals</summary>
         <ul class="pl-4 mt-2 space-y-1 text-sm">
@@ -62,7 +58,6 @@
           <li><span class="font-semibold">Unit 3:</span> Flexbox</li>
         </ul>
       </details>
-
       <details class="mb-2 bg-gray-700 p-3 rounded">
         <summary class="cursor-pointer font-medium text-lg hover:text-blue-400">Module 3: JavaScript Basics</summary>
         <ul class="pl-4 mt-2 space-y-1 text-sm">
@@ -71,7 +66,6 @@
           <li><span class="font-semibold">Unit 3:</span> DOM Manipulation</li>
         </ul>
       </details>
-
       <details class="mb-2 bg-gray-700 p-3 rounded">
         <summary class="cursor-pointer font-medium text-lg hover:text-blue-400">Module 4: Advanced JS / ES6+</summary>
         <ul class="pl-4 mt-2 space-y-1 text-sm">
