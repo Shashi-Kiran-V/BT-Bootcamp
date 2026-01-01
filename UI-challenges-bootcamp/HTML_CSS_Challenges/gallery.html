@@ -1,29 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PLD - Gallery</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PLD - Gallery</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+  </style>
 </head>
-<body>
-    <header>
-        <h1>Gallery</h1>
-        <nav>
-            <ul>
-                <li><a href="dashboard.html">Dashboard</a></li>
-                <li><a href="profile.html">Profile</a></li>
-                <li><a href="gallery.html">Gallery</a></li>
-                <li><a href="login.html">Logout</a></li>
-            </ul>
-        </nav>
-    </header>
+<body class="bg-gray-900 text-gray-100">
 
-    <main class="gallery-container">
-        <img src="https://via.placeholder.com/200x150" alt="Sample Image 1">
-        <img src="https://via.placeholder.com/200x150" alt="Sample Image 2">
-        <img src="https://via.placeholder.com/200x150" alt="Sample Image 3">
-        <img src="https://via.placeholder.com/200x150" alt="Sample Image 4">
-    </main>
+  <!-- Header -->
+  <header class="bg-gray-800 p-4 flex justify-between items-center">
+    <h1 class="text-2xl font-semibold">Gallery</h1>
+    <nav>
+      <ul class="flex gap-6">
+        <li><a href="dashboard.html" class="hover:text-blue-400">Dashboard</a></li>
+        <li><a href="profile.html" class="hover:text-blue-400">Profile</a></li>
+        <li><a href="gallery.html" class="hover:text-blue-400">Gallery</a></li>
+        <li><a href="login.html" class="hover:text-blue-400">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Gallery Content -->
+  <main class="p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+  <img src="https://picsum.photos/300/200?random=11" alt="Gallery Image 1" class="rounded-lg object-cover w-full h-48">
+  <img src="https://picsum.photos/300/200?random=12" alt="Gallery Image 2" class="rounded-lg object-cover w-full h-48">
+  <img src="https://picsum.photos/300/200?random=13" alt="Gallery Image 3" class="rounded-lg object-cover w-full h-48">
+  <img src="https://picsum.photos/300/200?random=14" alt="Gallery Image 4" class="rounded-lg object-cover w-full h-48">
+  <img src="https://picsum.photos/300/200?random=15" alt="Gallery Image 5" class="rounded-lg object-cover w-full h-48">
+  <img src="https://picsum.photos/300/200?random=16" alt="Gallery Image 6" class="rounded-lg object-cover w-full h-48">
+  <img src="https://picsum.photos/300/200?random=17" alt="Gallery Image 7" class="rounded-lg object-cover w-full h-48">
+  <img src="https://picsum.photos/300/200?random=18" alt="Gallery Image 8" class="rounded-lg object-cover w-full h-48">
+</main>
+
+
 </body>
 </html>

@@ -1,31 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PLD - Profile</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PLD - Profile</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+  </style>
 </head>
-<body>
-    <header>
-        <h1>Profile</h1>
-        <nav>
-            <ul>
-                <li><a href="dashboard.html">Dashboard</a></li>
-                <li><a href="profile.html">Profile</a></li>
-                <li><a href="gallery.html">Gallery</a></li>
-                <li><a href="login.html">Logout</a></li>
-            </ul>
-        </nav>
-    </header>
+<body class="bg-gray-900 text-gray-100">
 
-    <main class="profile-container">
-        <div class="profile-card">
-            <h2>Shashi Kiran</h2>
-            <p>Email: shashi@example.com</p>
-            <p>Phone: +91-9876543210</p>
-            <button>Edit Profile</button>
-        </div>
-    </main>
+  <!-- Header -->
+  <header class="bg-gray-800 p-4 flex justify-between items-center">
+    <h1 class="text-2xl font-semibold">Profile</h1>
+    <nav>
+      <ul class="flex gap-6">
+        <li><a href="dashboard.html" class="hover:text-blue-400">Dashboard</a></li>
+        <li><a href="profile.html" class="hover:text-blue-400">Profile</a></li>
+        <li><a href="gallery.html" class="hover:text-blue-400">Gallery</a></li>
+        <li><a href="login.html" class="hover:text-blue-400">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Profile Content -->
+  <main class="p-6 flex justify-center">
+    <div class="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md flex flex-col gap-4 items-center">
+  <img src="https://picsum.photos/100/100?random=20" alt="Profile Avatar" class="rounded-full mx-auto">
+  <h2 class="text-2xl font-semibold">Shashi Kiran</h2>
+  <p>Email: shashi@example.com</p>
+  <p>Phone: +91-9876543210</p>
+  <button class="bg-blue-500 hover:bg-blue-600 text-white font-semibold p-2 rounded mt-4">Edit Profile</button>
+</div>
+
+  </main>
+
 </body>
 </html>
