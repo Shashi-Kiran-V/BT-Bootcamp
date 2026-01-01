@@ -3,7 +3,7 @@ const readline = require('readline-sync');
 let cart = [];
 let addMore = true;
 
-// LAB 1: Add Items
+// LAB 1: Add Items to Cart
 while (addMore) {
   let itemCode = readline.question("Enter item code: ");
   let description = readline.question("Enter item description: ");
@@ -72,4 +72,24 @@ console.log("\n=== Tax and Platform Fee Details ===");
 console.log(`GST (18%):`.padEnd(30) + gstAmount.toFixed(2));
 console.log(`Platform Fee (0.2%):`.padEnd(30) + platformFee.toFixed(2));
 console.log("-".repeat(40));
-console.log(`Total Amount Payable:`.padEnd(30) + totalWithTax.toFixed(2));
+console.log(`Total Amount with Tax & Fee:`.padEnd(30) + totalWithTax.toFixed(2));
+
+// LAB 4: Apply Payment Mode Charges
+let paymentMode = readline.question("\nEnter payment mode (Card/UPI/Cash/Other): ").toLowerCase();
+let surcharge = 0;
+let convenienceFee = 0;
+
+if (paymentMode === "card" && totalWithTax < 1000) {
+  surcharge = totalWithTax * 0.025; // 2.5% surcharge
+} else {
+  convenienceFee = totalWithTax * 0.01; // 1% convenience fee
+}
+
+let finalTotalBeforeInvoice = totalWithTax + surcharge + convenienceFee;
+
+console.log("\n=== Payment Breakdown ===");
+console.log(`Payment Mode: ${paymentMode.charAt(0).toUpperCase() + paymentMode.slice(1)}`);
+console.log(`Surcharge (Card <1000):`.padEnd(30) + surcharge.toFixed(2));
+console.log(`Convenience Fee (Other Modes):`.padEnd(30) + convenienceFee.toFixed(2));
+console.log("-".repeat(40));
+console.log(`Final Amount Payable:`.padEnd(30) + finalTotalBeforeInvoice.toFixed(2));
