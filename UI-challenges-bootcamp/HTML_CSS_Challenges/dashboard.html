@@ -7,69 +7,115 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    summary::-webkit-details-marker { display: none; }
   </style>
 </head>
-<body class="bg-gray-900 text-gray-100">
+<body class="bg-gray-900 text-gray-100 min-h-screen">
 
   <!-- Header -->
   <header class="bg-gray-800 p-4 flex justify-between items-center">
     <h1 class="text-2xl font-semibold">Personal Learning Dashboard</h1>
-    <nav>
-      <ul class="flex gap-6">
-        <li><a href="dashboard.html" class="hover:text-blue-400">Dashboard</a></li>
-        <li><a href="profile.html" class="hover:text-blue-400">Profile</a></li>
-        <li><a href="gallery.html" class="hover:text-blue-400">Gallery</a></li>
-        <li><a href="login.html" class="hover:text-blue-400">Logout</a></li>
-      </ul>
+
+    <!-- Hamburger -->
+    <button id="menu-btn" class="md:hidden text-gray-100 text-2xl focus:outline-none">&#9776;</button>
+
+    <!-- Menu -->
+    <nav id="menu" class="hidden md:flex md:gap-6 flex-col md:flex-row mt-2 md:mt-0">
+      <a href="dashboard.html" class="block px-2 py-2 hover:text-blue-400">Dashboard</a>
+      <a href="profile.html" class="block px-2 py-2 hover:text-blue-400">Profile</a>
+      <a href="gallery.html" class="block px-2 py-2 hover:text-blue-400">Gallery</a>
+      <a href="login.html" class="block px-2 py-2 hover:text-blue-400">Logout</a>
     </nav>
   </header>
 
-  <!-- Dashboard Content -->
-  <main class="p-6 grid md:grid-cols-2 gap-6">
+  <script>
+    const btn = document.getElementById('menu-btn');
+    const menu = document.getElementById('menu');
 
-    <!-- Compact Module Card -->
-    <div class="bg-gray-800 p-4 rounded-lg shadow flex flex-col gap-3">
-      <h3 class="text-lg font-semibold">Module 1: HTML Basics</h3>
-      <p class="text-sm"><span class="font-medium">Unit:</span> Basic Tags</p>
-      <p class="text-sm"><span class="font-medium">Topics:</span> div, headers, paragraphs, anchor, image</p>
-      <div class="w-full bg-gray-700 rounded-full h-4">
-        <div class="bg-blue-500 h-4 rounded-full" style="width: 60%"></div>
-      </div>
-      <p class="text-sm mt-1">Labs Completed: 3/5</p>
-    </div>
+    btn.addEventListener('click', () => {
+      menu.classList.remove('hidden');   // show menu
+      btn.classList.add('hidden');       // hide hamburger
+    });
+  </script>
 
-    <!-- Detailed Module Card -->
-    <div class="bg-gray-800 p-6 rounded-lg shadow-lg flex flex-col gap-3">
-      <h3 class="text-xl font-semibold">Module 2: CSS Fundamentals</h3>
-      <p class="text-sm"><span class="font-medium">Unit:</span> Selectors & Properties</p>
-      <p class="text-sm"><span class="font-medium">Topics:</span> Typography, Box Model, Flexbox</p>
-      <div class="w-full bg-gray-700 rounded-full h-4">
-        <div class="bg-blue-500 h-4 rounded-full" style="width: 50%"></div>
-      </div>
-      <p class="text-sm mt-1">Labs Completed: 2/4</p>
-    </div>
+  <!-- Main -->
+  <main class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
 
-    <!-- Compact Module Card -->
-    <div class="bg-gray-800 p-4 rounded-lg shadow flex flex-col gap-3">
-      <h3 class="text-lg font-semibold">Module 3: JavaScript Basics</h3>
-      <p class="text-sm"><span class="font-medium">Unit:</span> Functions</p>
-      <p class="text-sm"><span class="font-medium">Topics:</span> Parameterized, Arrow, Callback </p>
-      <div class="w-full bg-gray-700 rounded-full h-4">
-        <div class="bg-blue-500 h-4 rounded-full" style="width: 40%"></div>
-      </div>
-      <p class="text-sm mt-1">Labs Completed: 2/5</p>
-    </div>
+    <!-- Topics Explorer -->
+    <section class="bg-gray-800 p-4 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-4">Topics Explorer</h2>
 
-    <!-- Detailed Module Card -->
-    <div class="bg-gray-800 p-6 rounded-lg shadow-lg flex flex-col gap-3">
-      <h3 class="text-xl font-semibold">Module 4: Advanced CSS</h3>
-      <p class="text-sm"><span class="font-medium">Unit:</span> Grid & Flexbox</p>
-      <p class="text-sm"><span class="font-medium">Topics:</span> Layouts, Animations, Transitions</p>
-      <div class="w-full bg-gray-700 rounded-full h-4">
-        <div class="bg-blue-500 h-4 rounded-full" style="width: 30%"></div>
+      <details class="mb-2 bg-gray-700 p-3 rounded">
+        <summary class="cursor-pointer font-medium text-lg hover:text-blue-400">Module 1: HTML Basics</summary>
+        <ul class="pl-4 mt-2 space-y-1 text-sm">
+          <li><span class="font-semibold">Unit 1:</span> Introduction</li>
+          <li><span class="font-semibold">Unit 2:</span> Elements & Attributes</li>
+          <li><span class="font-semibold">Unit 3:</span> Forms</li>
+        </ul>
+      </details>
+
+      <details class="mb-2 bg-gray-700 p-3 rounded">
+        <summary class="cursor-pointer font-medium text-lg hover:text-blue-400">Module 2: CSS Fundamentals</summary>
+        <ul class="pl-4 mt-2 space-y-1 text-sm">
+          <li><span class="font-semibold">Unit 1:</span> Selectors & Properties</li>
+          <li><span class="font-semibold">Unit 2:</span> Box Model</li>
+          <li><span class="font-semibold">Unit 3:</span> Flexbox</li>
+        </ul>
+      </details>
+
+      <details class="mb-2 bg-gray-700 p-3 rounded">
+        <summary class="cursor-pointer font-medium text-lg hover:text-blue-400">Module 3: JavaScript Basics</summary>
+        <ul class="pl-4 mt-2 space-y-1 text-sm">
+          <li><span class="font-semibold">Unit 1:</span> Syntax & Variables</li>
+          <li><span class="font-semibold">Unit 2:</span> Functions & Loops</li>
+          <li><span class="font-semibold">Unit 3:</span> DOM Manipulation</li>
+        </ul>
+      </details>
+
+      <details class="mb-2 bg-gray-700 p-3 rounded">
+        <summary class="cursor-pointer font-medium text-lg hover:text-blue-400">Module 4: Advanced JS / ES6+</summary>
+        <ul class="pl-4 mt-2 space-y-1 text-sm">
+          <li><span class="font-semibold">Unit 1:</span> ES6 Features | Topics: let/const, Arrow Functions, Template Literals</li>
+          <li><span class="font-semibold">Unit 2:</span> Advanced Functions | Topics: Closures, Callbacks, Higher-Order Functions</li>
+          <li><span class="font-semibold">Unit 3:</span> Async JS | Topics: Promises, Async/Await, Fetch API</li>
+          <li><span class="font-semibold">Unit 4:</span> Modules & Classes | Topics: JS Modules, Classes, Import/Export</li>
+          <li><span class="font-semibold">Unit 5:</span> Error Handling & Debugging | Topics: try/catch, console methods, Debugging Techniques</li>
+        </ul>
+      </details>
+    </section>
+
+    <!-- Labs Tracker -->
+    <section class="bg-gray-800 p-4 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-4">Labs Tracker</h2>
+      <div class="mb-4">
+        <p class="font-medium">HTML Basics</p>
+        <div class="w-full bg-gray-700 rounded-full h-4">
+          <div class="bg-blue-500 h-4 rounded-full" style="width: 100%"></div>
+        </div>
+        <p class="text-sm mt-1">Completed 100%</p>
       </div>
-      <p class="text-sm mt-1">Labs Completed: 1/3</p>
-    </div>
+      <div class="mb-4">
+        <p class="font-medium">CSS Fundamentals</p>
+        <div class="w-full bg-gray-700 rounded-full h-4">
+          <div class="bg-blue-500 h-4 rounded-full" style="width: 60%"></div>
+        </div>
+        <p class="text-sm mt-1">Completed 60%</p>
+      </div>
+      <div class="mb-4">
+        <p class="font-medium">JavaScript Basics</p>
+        <div class="w-full bg-gray-700 rounded-full h-4">
+          <div class="bg-blue-500 h-4 rounded-full" style="width: 40%"></div>
+        </div>
+        <p class="text-sm mt-1">Completed 40%</p>
+      </div>
+      <div class="mb-4">
+        <p class="font-medium">Advanced JS / ES6+</p>
+        <div class="w-full bg-gray-700 rounded-full h-4">
+          <div class="bg-blue-500 h-4 rounded-full" style="width: 35%"></div>
+        </div>
+        <p class="text-sm mt-1">Completed 35%</p>
+      </div>
+    </section>
 
   </main>
 

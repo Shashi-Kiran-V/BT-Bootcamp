@@ -9,31 +9,35 @@
     body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
   </style>
 </head>
-<body class="bg-gray-900 text-gray-100">
+<body class="bg-gray-900 text-gray-100 min-h-screen">
 
   <!-- Header -->
   <header class="bg-gray-800 p-4 flex justify-between items-center">
     <h1 class="text-2xl font-semibold">Profile</h1>
-    <nav>
-      <ul class="flex gap-6">
-        <li><a href="dashboard.html" class="hover:text-blue-400">Dashboard</a></li>
-        <li><a href="profile.html" class="hover:text-blue-400">Profile</a></li>
-        <li><a href="gallery.html" class="hover:text-blue-400">Gallery</a></li>
-        <li><a href="login.html" class="hover:text-blue-400">Logout</a></li>
-      </ul>
+    <button id="menu-btn" class="md:hidden text-gray-100 text-2xl focus:outline-none">&#9776;</button>
+    <nav id="menu" class="hidden md:flex md:gap-6 flex-col md:flex-row mt-2 md:mt-0">
+      <a href="dashboard.html" class="block px-2 py-2 hover:text-blue-400">Dashboard</a>
+      <a href="profile.html" class="block px-2 py-2 hover:text-blue-400">Profile</a>
+      <a href="gallery.html" class="block px-2 py-2 hover:text-blue-400">Gallery</a>
+      <a href="login.html" class="block px-2 py-2 hover:text-blue-400">Logout</a>
     </nav>
   </header>
 
-  <!-- Profile Content -->
-  <main class="p-6 flex justify-center">
-    <div class="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md flex flex-col gap-4 items-center">
-  <img src="https://picsum.photos/100/100?random=20" alt="Profile Avatar" class="rounded-full mx-auto">
-  <h2 class="text-2xl font-semibold">Shashi Kiran</h2>
-  <p>Email: shashi@example.com</p>
-  <p>Phone: +91-9876543210</p>
-  <button class="bg-blue-500 hover:bg-blue-600 text-white font-semibold p-2 rounded mt-4">Edit Profile</button>
-</div>
+  <script>
+    const btn = document.getElementById('menu-btn');
+    const menu = document.getElementById('menu');
+    btn.addEventListener('click', () => { menu.classList.remove('hidden'); btn.classList.add('hidden'); });
+  </script>
 
+  <!-- Main -->
+  <main class="p-6 flex flex-col items-center gap-6">
+    <div class="bg-gray-800 p-6 rounded-lg shadow w-full max-w-md flex flex-col gap-4 items-center">
+      <img src="https://picsum.photos/100/100?random=20" alt="Profile Avatar" class="rounded-full">
+      <h2 class="text-2xl font-semibold">Shashi Kiran</h2>
+      <p>Email: shashi@example.com</p>
+      <p>Phone: +91-9876543210</p>
+      <button class="bg-blue-500 hover:bg-blue-600 text-white font-semibold p-2 rounded mt-4">Edit Profile</button>
+    </div>
   </main>
 
 </body>
