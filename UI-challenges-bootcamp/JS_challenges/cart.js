@@ -1,6 +1,7 @@
 const readline = require('readline-sync');
 const fs = require('fs');
 
+// ===== LAB 9: Custom Error for Validation =====
 class ValidationError extends Error {
   constructor(message) {
     super(message);
@@ -8,6 +9,25 @@ class ValidationError extends Error {
   }
 }
 
+// ===== LAB 10: Closure-based Discount Function =====
+function getDiscountFunction(type) {
+  const rates = {
+    silver: 0.05,
+    gold: 0.10,
+    platinum: 0.15,
+    none: 0
+  };
+  return function(baseAmount) {
+    const discountRate = rates[type.toLowerCase()] ?? 0;
+    return {
+      discountRate,
+      discountAmount: baseAmount * discountRate,
+      discountedTotal: baseAmount - baseAmount * discountRate
+    };
+  };
+}
+
+// ===== Main Checkout Process =====
 let cart = [];
 let addMore = true;
 
@@ -16,10 +36,10 @@ try {
   while (addMore) {
     let itemCode = readline.question("Enter item code: ");
     let description = readline.question("Enter item description: ");
-    
+
     let quantity = parseFloat(readline.question("Enter quantity: "));
     if (isNaN(quantity) || quantity <= 0) throw new ValidationError("Quantity must be a number greater than 0.");
-    
+
     let pricePerUnit = parseFloat(readline.question("Enter price per unit: "));
     if (isNaN(pricePerUnit) || pricePerUnit <= 0) throw new ValidationError("Price must be a number greater than 0.");
 
@@ -31,25 +51,45 @@ try {
 
   if (cart.length === 0) throw new ValidationError("Cart cannot be empty.");
 
-  // ===== LAB 2: Membership Discount =====
+  // ===== LAB 2 & 10: Membership Discount =====
+  // ===== OLD LAB 2 CODE (COMMENTED) =====
+  // let membershipType = "None";
+  // let discountRate = 0;
+  // let isMember = readline.question("Are you a member? (yes/no): ").toLowerCase();
+  // if (isMember === "yes") {
+  //     membershipType = readline.question("Enter membership type (Silver/Gold/Platinum): ").toLowerCase();
+  //     if (membershipType === "silver") discountRate = 0.05;
+  //     else if (membershipType === "gold") discountRate = 0.10;
+  //     else if (membershipType === "platinum") discountRate = 0.15;
+  //     else {
+  //         console.log("Invalid membership type. No discount applied.");
+  //         discountRate = 0;
+  //         membershipType = "None";
+  //     }
+  // }
+
   let membershipType = "None";
-  let discountRate = 0;
   let isMember = readline.question("Are you a member? (yes/no): ").toLowerCase();
+
   if (isMember === "yes") {
-    membershipType = readline.question("Enter membership type (Silver/Gold/Platinum): ").toLowerCase();
-    if (membershipType === "silver") discountRate = 0.05;
-    else if (membershipType === "gold") discountRate = 0.10;
-    else if (membershipType === "platinum") discountRate = 0.15;
-    else {
-      console.log("Invalid membership type. No discount applied.");
-      discountRate = 0;
-      membershipType = "None";
-    }
+    membershipType = readline.question("Enter membership type (Silver/Gold/Platinum): ");
   }
 
+  const discountCalculator = getDiscountFunction(membershipType);
+  let grandTotal = cart.reduce((sum, item) => sum + item.totalPrice, 0);
+  const discountInfo = discountCalculator(grandTotal);
+
+  let discountRate = discountInfo.discountRate;
+  let discountAmount = discountInfo.discountAmount;
+  let discountedTotal = discountInfo.discountedTotal;
+
   // ===== LAB 3: GST & Platform Fee =====
-  const gstRate = 0.18;
-  const platformFeeRate = 0.002;
+  const gstRate = 0.18;          // 18% GST
+  const platformFeeRate = 0.002; // 0.2% platform fee
+
+  let gstAmount = discountedTotal * gstRate;
+  let platformFee = discountedTotal * platformFeeRate;
+  let totalWithTax = discountedTotal + gstAmount + platformFee;
 
   // ===== LAB 4: Payment Mode Charges =====
   let paymentMode = readline.question("Enter payment mode (Card/UPI/Cash/Other): ").toLowerCase();
@@ -58,28 +98,20 @@ try {
   let surcharge = 0;
   let convenienceFee = 0;
 
-  // ===== CALCULATIONS =====
-  let grandTotal = cart.reduce((sum, item) => sum + item.totalPrice, 0);
-  let discountAmount = grandTotal * discountRate;
-  let discountedTotal = grandTotal - discountAmount;
-
-  let gstAmount = discountedTotal * gstRate;
-  let platformFee = discountedTotal * platformFeeRate;
-  let totalWithTax = discountedTotal + gstAmount + platformFee;
-
   if (paymentMode === "card" && totalWithTax < 1000) {
-    surcharge = totalWithTax * 0.025;
+    surcharge = totalWithTax * 0.025; // 2.5% surcharge
   } else if (paymentMode !== "card") {
-    convenienceFee = totalWithTax * 0.01;
+    convenienceFee = totalWithTax * 0.01; // 1% convenience fee
   }
 
   let finalAmount = totalWithTax + surcharge + convenienceFee;
 
-  // ===== LAB 5 & 8: Invoice & Email Validation =====
+  // ===== LAB 5: Generate Invoice =====
   let invoiceNumber = "INV-" + Math.floor(Math.random() * 1000000);
   let invoiceDate = new Date();
 
-  let emailPattern = /^[a-zA-Z0-9._%+-]+@karunya\.edu$/;
+  // ===== LAB 8: Email Validation & Notification =====
+  const emailPattern = /^[a-zA-Z0-9._%+-]+@karunya\.edu$/;
   let email = readline.question("Enter your email (@karunya.edu): ");
   while (!emailPattern.test(email)) {
     console.log("Invalid email format. Please enter a valid @karunya.edu email.");
@@ -88,6 +120,7 @@ try {
 
   console.log(`Thank you! A confirmation has been sent to ${email}.`);
 
+  // ===== LAB 6: Optional local save =====
   let invoiceData = {
     invoiceNumber,
     invoiceDate: invoiceDate.toISOString(),
@@ -107,7 +140,6 @@ try {
     finalAmount
   };
 
-  // ===== LAB 6: Optional save =====
   let saveOption = readline.question("Do you want to save the invoice locally as JSON? (yes/no): ").toLowerCase();
   if (saveOption === "yes") {
     let fileName = `${invoiceNumber}.json`;
