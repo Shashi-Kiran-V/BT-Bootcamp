@@ -13,8 +13,6 @@
 ## Browser Testing
 Tested successfully on:
 - **Chrome** ✅
-- **Firefox** ✅
-- **Safari** ✅
 - **Edge** ✅
 
 ## Features
